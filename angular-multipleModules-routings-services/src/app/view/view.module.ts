@@ -3,7 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ViewComponentComponent } from './view-component/view-component.component';
 
 @NgModule({
-  declarations: [ViewComponentComponent],
+  declarations: [
+    ViewComponentComponent
+  ],
+  exports: [
+    ViewComponentComponent
+  ],
   imports: [
     CommonModule
   ]
