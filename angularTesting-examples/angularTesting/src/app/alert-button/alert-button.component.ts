@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlertButtonComponent implements OnInit {
   hidenConent = true;
+  content = 'text with warn';
+  severity = 3;
 
   constructor() { }
 

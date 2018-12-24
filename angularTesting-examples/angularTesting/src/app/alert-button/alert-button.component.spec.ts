@@ -28,4 +28,27 @@ describe('AlertButtonComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have a message with `warm`', () => {
+    expect(component.content).toContain('warn');
+  });
+
+  it('should have severity grater than 2', () => {
+    expect(component.severity).toBeGreaterThan(2);
+  });
+
+  it('should have an H1 tag of `Alert button`', () => {
+    expect(de.query(By.css('h1')).nativeElement.innerText).toBe('Alert button');
+  });
+  it('should have an H1 tag of `Alert button test other way`', () => {
+    const compiled = de.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Alert button');
+  });
+
+  it('should toggle the message boolean', () => {
+    expect(component.hidenConent).toBeTruthy();
+    component.toggle();
+    expect(component.hidenConent).toBeFalsy();
+  });
+
 });
