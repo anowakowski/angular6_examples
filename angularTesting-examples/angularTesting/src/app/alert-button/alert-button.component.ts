@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from '../message.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-alert-button',
@@ -6,13 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./alert-button.component.css']
 })
 export class AlertButtonComponent implements OnInit {
+
+  content: Observable<any>;
+
   hidenConent = true;
-  content = 'text with warn';
+  // content = 'text with warn';
   severity = 3;
 
-  constructor() { }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit() {
+    this.content = this.messageService.getContent();
   }
 
   toggle() {

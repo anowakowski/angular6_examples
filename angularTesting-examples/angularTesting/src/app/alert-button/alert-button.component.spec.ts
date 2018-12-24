@@ -2,17 +2,28 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 import { AlertButtonComponent } from './alert-button.component';
+import { MessageService } from '../message.service';
 
 describe('AlertButtonComponent', () => {
   let component: AlertButtonComponent;
   let fixture: ComponentFixture<AlertButtonComponent>;
   let de: DebugElement;
 
+  let serviceStub: any;
+
   beforeEach(async(() => {
+
+    serviceStub = {
+      getContent: () => of('you have been warned')
+    };
+
     TestBed.configureTestingModule({
-      declarations: [ AlertButtonComponent ]
+      declarations: [ AlertButtonComponent ],
+      providers: [ {provide: MessageService, useValue: serviceStub} ]
+
     })
     .compileComponents();
   }));
@@ -29,9 +40,9 @@ describe('AlertButtonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have a message with `warm`', () => {
-    expect(component.content).toContain('warn');
-  });
+  // it('should have a message with `warm`', () => {
+  //   expect(component.content).toContain('warn');
+  // });
 
   it('should have severity grater than 2', () => {
     expect(component.severity).toBeGreaterThan(2);
@@ -49,6 +60,13 @@ describe('AlertButtonComponent', () => {
     expect(component.hidenConent).toBeTruthy();
     component.toggle();
     expect(component.hidenConent).toBeFalsy();
+  });
+
+  it('should have message content defined from an observable', () => {
+    component.content.subscribe(content => {
+      expect(content).toBeDefined();
+      expect(content).toBe('you have been warned');
+    });
   });
 
 });
